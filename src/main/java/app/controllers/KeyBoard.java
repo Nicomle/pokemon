@@ -5,10 +5,10 @@ import java.awt.event.KeyListener;
 
 public class KeyBoard implements KeyListener {
 
-    public boolean up;
-    public boolean down;
-    public boolean left;
-    public boolean right;
+    public boolean up = false;
+    public boolean down = false;
+    public boolean left = false;
+    public boolean right = false;
 
     @Override
     public void keyTyped(KeyEvent e) {

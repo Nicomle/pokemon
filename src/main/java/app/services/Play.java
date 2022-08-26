@@ -6,7 +6,6 @@ import app.graphics.Personaje;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class Play extends JFrame implements Runnable {
 
@@ -18,37 +17,28 @@ public class Play extends JFrame implements Runnable {
     private static Thread thread;
     private static KeyBoard keyBoard;
 
-    private static Personaje pj = new Personaje("src/main/java/app/sprites/PJ0.png", 'S', false);
-    private static BufferedImage imageBuffered;
+    private static Personaje pj;
     private static JPanel pjPanel;
-    private static JLabel pjLabel;
-
-    private static int x = Properties.pjMediumX;
-    private static int y = Properties.pjMediumY;
 
     public Play() {
         setPreferredSize(new Dimension(Properties.width, Properties.height));
-
-        keyBoard = new KeyBoard();
-        addKeyListener(keyBoard);
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setLayout(new BorderLayout());
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
-        imageBuffered = pj.pj0Down1.getBufferedImage();
+
+        keyBoard = new KeyBoard();
+        addKeyListener(keyBoard);
 
         pjPanel = new JPanel();
+        pjPanel.setSize(new Dimension(Properties.width, Properties.height));
         pjPanel.setVisible(true);
         add(pjPanel);
 
-        pjLabel = new JLabel();
-        pjLabel.setIcon(new ImageIcon(imageBuffered));
-        pjLabel.setBounds(x, y, Properties.tamSprite, Properties.tamSprite);
-        pjLabel.setVisible(true);
-        pjPanel.add(pjLabel);
+        pj = new Personaje("src/main/java/app/sprites/PJ0.png", 'S', false, new Dimension(Properties.pjMediumX, Properties.pjMediumY));
+        pjPanel.add(pj.pjLabel);
     }
 
     @Override
@@ -58,7 +48,6 @@ public class Play extends JFrame implements Runnable {
         final double NS_UPDATE = NS_SECONDS / APS_OBJECTIVE;
         long updateReference = System.nanoTime();
         long counterReference = System.nanoTime();
-        ;
         double timeElapsed;
         double delta = 0;
         requestFocus();
@@ -102,104 +91,16 @@ public class Play extends JFrame implements Runnable {
 
     private void update() {
         if (keyBoard.up) {
-            imageBuffered = pj.pj0Up1.getBufferedImage();
-            pjLabel.setIcon(new ImageIcon(imageBuffered));
-            try {
-                for (int i = 0; i < Properties.tamSprite; i++) {
-                    y--;
-                    Thread.sleep(8);
-                    pjLabel.setLocation(x, y);
-                    if(i == 16) {
-                        imageBuffered = pj.pj0Up2.getBufferedImage();
-                        pjLabel.setIcon(new ImageIcon(imageBuffered));
-                    } else if (i == 32) {
-                        imageBuffered = pj.pj0Up3.getBufferedImage();
-                        pjLabel.setIcon(new ImageIcon(imageBuffered));
-                    } else if (i == 48) {
-                        imageBuffered = pj.pj0Up4.getBufferedImage();
-                        pjLabel.setIcon(new ImageIcon(imageBuffered));
-                    }
-                }
-                imageBuffered = pj.pj0Up1.getBufferedImage();
-                pjLabel.setIcon(new ImageIcon(imageBuffered));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            pj.moveUp();
         }
         if (keyBoard.down) {
-            imageBuffered = pj.pj0Down1.getBufferedImage();
-            pjLabel.setIcon(new ImageIcon(imageBuffered));
-            try {
-                for (int i = 0; i < Properties.tamSprite; i++) {
-                    y++;
-                    Thread.sleep(8);
-                    pjLabel.setLocation(x, y);
-                    if(i == 16) {
-                        imageBuffered = pj.pj0Down2.getBufferedImage();
-                        pjLabel.setIcon(new ImageIcon(imageBuffered));
-                    } else if (i == 32) {
-                        imageBuffered = pj.pj0Down3.getBufferedImage();
-                        pjLabel.setIcon(new ImageIcon(imageBuffered));
-                    } else if (i == 48) {
-                        imageBuffered = pj.pj0Down4.getBufferedImage();
-                        pjLabel.setIcon(new ImageIcon(imageBuffered));
-                    }
-                }
-                imageBuffered = pj.pj0Down1.getBufferedImage();
-                pjLabel.setIcon(new ImageIcon(imageBuffered));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            pj.moveDown();
         }
         if (keyBoard.left) {
-            imageBuffered = pj.pj0Left1.getBufferedImage();
-            pjLabel.setIcon(new ImageIcon(imageBuffered));
-            try {
-                for (int i = 0; i < Properties.tamSprite; i++) {
-                    x--;
-                    Thread.sleep(8);
-                    pjLabel.setLocation(x, y);
-                    if(i == 16) {
-                        imageBuffered = pj.pj0Left2.getBufferedImage();
-                        pjLabel.setIcon(new ImageIcon(imageBuffered));
-                    } else if (i == 32) {
-                        imageBuffered = pj.pj0Left3.getBufferedImage();
-                        pjLabel.setIcon(new ImageIcon(imageBuffered));
-                    } else if (i == 48) {
-                        imageBuffered = pj.pj0Left4.getBufferedImage();
-                        pjLabel.setIcon(new ImageIcon(imageBuffered));
-                    }
-                }
-                imageBuffered = pj.pj0Left1.getBufferedImage();
-                pjLabel.setIcon(new ImageIcon(imageBuffered));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            pj.moveLeft();
         }
         if (keyBoard.right) {
-            imageBuffered = pj.pj0Right1.getBufferedImage();
-            pjLabel.setIcon(new ImageIcon(imageBuffered));
-            try {
-                for (int i = 0; i < Properties.tamSprite; i++) {
-                    x++;
-                    Thread.sleep(8);
-                    pjLabel.setLocation(x, y);
-                    if(i == 16) {
-                        imageBuffered = pj.pj0Right2.getBufferedImage();
-                        pjLabel.setIcon(new ImageIcon(imageBuffered));
-                    } else if (i == 32) {
-                        imageBuffered = pj.pj0Right3.getBufferedImage();
-                        pjLabel.setIcon(new ImageIcon(imageBuffered));
-                    } else if (i == 48) {
-                        imageBuffered = pj.pj0Right4.getBufferedImage();
-                        pjLabel.setIcon(new ImageIcon(imageBuffered));
-                    }
-                }
-                imageBuffered = pj.pj0Right1.getBufferedImage();
-                pjLabel.setIcon(new ImageIcon(imageBuffered));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            pj.moveRight();
         }
         aps++;
     }

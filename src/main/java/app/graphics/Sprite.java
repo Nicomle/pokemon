@@ -6,15 +6,11 @@ import java.awt.image.BufferedImage;
 
 public class Sprite {
 
-    private final BufferedImage imageBuffered;
+    public final BufferedImage bufferedImage;
 
     public Sprite(final int column, final int row, final SpriteSheet sheet) {
-        imageBuffered = sheet.getBufferedImage()
+        bufferedImage = sheet.bufferedImage
                 .getSubimage(column * Properties.tamSprite, row * Properties.tamSprite,
                         Properties.tamSprite, Properties.tamSprite);
-    }
-
-    public BufferedImage getBufferedImage() {
-        return imageBuffered;
     }
 }

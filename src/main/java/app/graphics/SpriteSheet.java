@@ -6,17 +6,13 @@ import java.io.FileInputStream;
 
 public class SpriteSheet {
 
-    private BufferedImage imageBuffered;
+    public BufferedImage bufferedImage;
 
     public SpriteSheet(final String ruta) {
         try {
-            imageBuffered = ImageIO.read(new FileInputStream(ruta));
+            bufferedImage = ImageIO.read(new FileInputStream(ruta));
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public BufferedImage getBufferedImage() {
-        return imageBuffered;
     }
 }
